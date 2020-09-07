@@ -22,10 +22,17 @@ import {
 import { Container, Input, Item, Button } from 'native-base';
 import {} from '@react-navigation/native'
 
-import read from './screen/read';
-import inputData from './screen/inputData';
 
 import axios from 'axios';
+
+function HomeScreen() {
+  return (
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Home</Text>
+    </View>
+  );
+}
+
 
 export default class App extends Component {
   constructor(props) {
@@ -58,7 +65,7 @@ onSubmit = () => {
 
   render(){
     return (
-      <>      
+      <>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
           <ScrollView>
@@ -100,12 +107,6 @@ onSubmit = () => {
                     <Text style={styles.text}>SUBMIT</Text>
                   </Button>
                 </View>
-                <View style={styles.tombol1}>
-                  <Read/>
-                </View>
-                <NavigationContainer>
-                  <MyTabs />
-                </NavigationContainer>
             </Container>
           </ScrollView>
         </SafeAreaView>
