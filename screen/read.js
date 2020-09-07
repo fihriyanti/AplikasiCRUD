@@ -13,49 +13,147 @@ import {
   View,
   Text,
   StatusBar,
+  Modal,
+  Alert,
+  ListView,
+  SwipeableListView,
+  FlatList
 } from 'react-native';
 
 import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
-import { Container, Button} from 'native-base';
+import { Container, Header, Title} from 'native-base';
+
+import axios from 'axios';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { SwipeListView } from 'react-native-swipe-list-view';
 
 export default class App extends Component {
+  
+  constructor(props){
+    super(props);
+    this.state = {
+        name: '',
+        modalVisible: false,
+    }
+}
+
+setModalVisible = (visible) => {
+  this.setState({modalVisible: visible});
+}
+
+ componentDidMount(){
+    axios.get('http://192.168.1.9:5000/exercises/')
+    .then(response => {
+        const name = response.data;
+        this.setState({name})
+        console.log(name)
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+}
+
+getdata(){
+  axios.get('http://192.168.1.9:5000/exercises/')
+  .then(response => {
+    const name = response.data;
+    this.setState({name})
+    console.log(name)
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
+
+getDataspec(id) {
+  axios.get('http://192.168.1.9:5000/exercises/update/${id}')
+  .then(response => {
+    const name = response.data;
+    this.setState({name})
+    console.log(name)
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+}
+
+componentDidUpdate(){
+  this.getdata();
+}
+
+deleteHobby(id){
+  Alert.alert(
+    "WARNING",
+    "Are You Sure Want Delete This Data?",
+    [
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+      { text: "OK", onPress: () => { 
+        axios.delete(`http://192.168.1.9:5000/exercises/${id}`)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          this.getdata()})
+        } 
+      }
+    ],
+    { cancelable: false }
+  );
+}
+
+keyExtractor = (item, index) => index.toString
 
     render(){
         return (
-            <>
-              <StatusBar barStyle="dark-content" />
-              <SafeAreaView>
-                  <Container style={styles.container}>
+          <View style={styles.container}>
+            <Container style={styles.container}>
+              <Header style={styles.header}>
+                  <Title >DATA HOBBY</Title>
+              </Header>
+                <SwipeListView
+                  // keyExtractor={this.keyExtractor}
+                  data={this.state.name}
+                  renderItem={({item}) => (
+                    <TouchableHighlight
+                      onPress={() => {
+                        console.log("ID",item._id)
+                        this.setModalVisible(true);
+                      }}
+                      style={styles.rowFront} 
+                      underlayColor={'#EEEEEE'}>
                       <View>
-                          <Button styles={styles.tombol} full rounded> 
-                            <Text style={styles.text}>READ DATA</Text>
-                          </Button>
+                        <Text>{item.name}</Text>
+                        <Text>{item.hobby}</Text>
+                        <Text>{item.age}</Text>
                       </View>
-                  </Container>
-              </SafeAreaView>
-            </>
+                    </TouchableHighlight>)}
+                />
+            </Container>
+          </View>
           );
     }
 }
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   container: {
     backgroundColor: '#FEDBD0',
     alignContent: 'center'
   },
-  tombol: {
-    alignSelf: 'center',
-    marginTop : 10, 
-    marginLeft: 10, 
-    marginRight: 10,      
+  header: {
+    alignItems: 'center',
   },
-  text: {
-      fontSize: 20,
-      color: '#fff'
-  }
+  rowFront: {
+      alignItems: 'flex-start',
+      backgroundColor: '#C2B0E0',
+      borderBottomColor: 'black',
+      borderBottomWidth: 1,
+      justifyContent: 'flex-start',
+      paddingLeft: 20,
+      height: 70,
+  },
 });

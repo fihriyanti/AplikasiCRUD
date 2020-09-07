@@ -25,14 +25,6 @@ import {} from '@react-navigation/native'
 
 import axios from 'axios';
 
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home</Text>
-    </View>
-  );
-}
-
 
 export default class App extends Component {
   constructor(props) {
@@ -59,13 +51,13 @@ onSubmit = () => {
 
   console.log(' Data ',exercises);
 
-  axios.post('http://192.168.1.6:5000/exercises/add', exercises)
+  axios.post('http://192.168.1.9:5000/exercises/add', exercises)
   .then(res => console.log(res.data))
 }
 
   render(){
     return (
-      <>
+      <View style={styles.container}>
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
           <ScrollView>
@@ -103,14 +95,24 @@ onSubmit = () => {
                   </Item>
                 </View>
                 <View style={styles.tombol}>
-                  <Button styles={styles.tombol} full rounded onPress={this.onSubmit}> 
+                  <Button full rounded styles={styles.tombol} 
+                  onPress={() => {
+                    this.onSubmit();
+                    this.props.navigation.navigate('Read')
+                  }}> 
                     <Text style={styles.text}>SUBMIT</Text>
+                  </Button>
+                </View>
+                <View style={styles.tombol}>
+                  <Button full rounded styles={styles.tombol} 
+                  onPress={() => {this.props.navigation.navigate('Read')}}> 
+                    <Text style={styles.text}>READ DATA</Text>
                   </Button>
                 </View>
             </Container>
           </ScrollView>
         </SafeAreaView>
-      </>
+      </View>
     );
   }  
 }
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
   },
   container: {
     backgroundColor: '#FEDBD0',
-    alignContent: 'center'
+    alignContent: 'center',
   },
   judul: {
     marginTop: 20,
