@@ -28,18 +28,13 @@ import axios from 'axios';
 
 export default class App extends Component {
   constructor(props) {
-
     super(props);
 
     this.state = {
         name: '',
-    }
-    this.state = {
         hobby: '',
-    }
-    this.state= {
         age:'',
-    };
+    }
 }
 
 onSubmit = () => {
@@ -51,14 +46,13 @@ onSubmit = () => {
 
   console.log(' Data ',exercises);
 
-  axios.post('http://192.168.1.9:5000/exercises/add', exercises)
+  axios.post('http://192.168.1.7:5000/exercises/add', exercises)
   .then(res => console.log(res.data))
 }
 
   render(){
     return (
       <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
         <SafeAreaView>
           <ScrollView>
             <Container style={styles.container}>
@@ -88,6 +82,7 @@ onSubmit = () => {
                 <View>
                   <Item style={styles.atas} rounded>
                     <Input style={styles.input} 
+                    keyboardType='numeric'
                     placeholder='Your Age'
                     onChangeText={age => this.setState({age})}
                     value = {this.state.age}>

@@ -8,21 +8,13 @@
 
 import React, { Component} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
   View,
   Text,
-  StatusBar,
-  Modal,
   Alert,
-  ListView,
-  SwipeableListView,
-  FlatList
+  ScrollView,
 } from 'react-native';
 
-import {
-  Colors,
-} from 'react-native/Libraries/NewAppScreen';
 import { Container, Header, Title} from 'native-base';
 
 import axios from 'axios';
@@ -44,7 +36,8 @@ setModalVisible = (visible) => {
 }
 
  componentDidMount(){
-    axios.get('http://192.168.1.9:5000/exercises/')
+   this.getdata();
+    axios.get('http://192.168.1.7:5000/exercises/')
     .then(response => {
         const name = response.data;
         this.setState({name})
@@ -56,19 +49,7 @@ setModalVisible = (visible) => {
 }
 
 getdata(){
-  axios.get('http://192.168.1.9:5000/exercises/')
-  .then(response => {
-    const name = response.data;
-    this.setState({name})
-    console.log(name)
-  })
-  .catch((error) => {
-    console.log(error);
-  })
-}
-
-getDataspec(id) {
-  axios.get('http://192.168.1.9:5000/exercises/update/${id}')
+  axios.get('http://192.168.1.7:5000/exercises/')
   .then(response => {
     const name = response.data;
     this.setState({name})
@@ -94,7 +75,7 @@ deleteHobby(id){
         style: "cancel"
       },
       { text: "OK", onPress: () => { 
-        axios.delete(`http://192.168.1.9:5000/exercises/${id}`)
+        axios.delete(`http://192.168.1.7:5000/exercises/${id}`)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -106,36 +87,36 @@ deleteHobby(id){
   );
 }
 
-keyExtractor = (item, index) => index.toString
+keyExtractor = (item, index) => index.toString()
 
     render(){
         return (
           <View style={styles.container}>
-            <Container style={styles.container}>
-              <Header style={styles.header}>
-                  <Title >DATA HOBBY</Title>
-              </Header>
-                <SwipeListView
-                  // keyExtractor={this.keyExtractor}
-                  data={this.state.name}
-                  renderItem={({item}) => (
-                    <TouchableHighlight
-                      onPress={() => {
-                        console.log("ID",item._id)
-                        this.setModalVisible(true);
-                      }}
-                      style={styles.rowFront} 
-                      underlayColor={'#EEEEEE'}>
-                      <View>
-                        <Text>{item.name}</Text>
-                        <Text>{item.hobby}</Text>
-                        <Text>{item.age}</Text>
-                      </View>
-                    </TouchableHighlight>)}
-                />
-            </Container>
+              <Container style={styles.container}>
+                <Header style={styles.header}>
+                    <Title >DATA HOBBY</Title>
+                </Header>
+                  <SwipeListView
+                    keyExtractor={this.keyExtractor}
+                    data={this.state.name}
+                    renderItem={({item}) => (
+                      <TouchableHighlight
+                        onPress={() => {
+                          console.log("ID",item._id)
+                          this.setModalVisible(true);
+                        }}
+                        style={styles.rowFront} 
+                        underlayColor={'#EEEEEE'}>
+                        <View>
+                          <Text>{item.name}</Text>
+                          <Text>{item.hobby}</Text>
+                          <Text>{item.age}</Text>
+                        </View>
+                      </TouchableHighlight>)}
+                  />
+              </Container>
           </View>
-          );
+        );
     }
 }
 
