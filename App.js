@@ -11,6 +11,7 @@ import React, {Component} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import Home from './screen/Home';
 import read from './screen/read';
 import inputData from './screen/inputData';
 import update from './screen/update';
@@ -22,6 +23,7 @@ export default class App extends Component {
     return (
         <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Input Data" component={inputData} />
           <Stack.Screen name="Read" component={read} />
           <Stack.Screen name="Update" component={update} />

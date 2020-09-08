@@ -14,12 +14,12 @@ import {
   Alert,
 } from 'react-native';
 
-import {Header, Title, Content, CardItem, Card} from 'native-base';
+import {Header, Content, CardItem, Card, Container} from 'native-base';
 
 import axios from 'axios';
 import { TouchableHighlight, FlatList } from 'react-native-gesture-handler';
 
-export default class App extends Component {
+export default class Read extends Component {
   
   constructor(props){
     super(props);
@@ -62,8 +62,6 @@ componentDidUpdate(){
   this.getdata();
 }
 
-
-
 createTwoButtonAlert(id, name, hobby, age) {
   Alert.alert(
       "What will you do?",
@@ -95,9 +93,12 @@ createTwoButtonAlert(id, name, hobby, age) {
 
     render(){
         return (
-          <View style={styles.container}>
+        <Container style={styles.container}>
+          <View>
                 <Header style={styles.header}>
-                    <Title style={{alignSelf: 'center'}}>DATA HOBBY</Title>
+                    <Text style={styles.textHeader}>
+                      DATA HOBBY
+                    </Text>
                 </Header>
                   <FlatList
                     keyExtractor={(item) => item._id}
@@ -120,6 +121,7 @@ createTwoButtonAlert(id, name, hobby, age) {
                       </TouchableHighlight>)}
                   />
           </View>
+        </Container>  
         );
     }
 }
@@ -131,11 +133,18 @@ const styles = StyleSheet.create({
   },
   header: {
     alignContent: 'center',
+    backgroundColor: '#ff8a80'
   },
   rowFront: {
       justifyContent: 'flex-start',
       paddingLeft: 10,
       paddingRight: 10,
       height: 100,
+  },
+  textHeader: {
+    alignSelf: 'center',
+    fontSize: 20,
+    color: '#fff',
+    fontFamily: 'serif'
   },
 });

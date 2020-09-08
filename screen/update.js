@@ -25,7 +25,7 @@ import {} from '@react-navigation/native'
 import axios from 'axios';
 
 
-export default class App extends Component {
+export default class Update extends Component {
   constructor(props) {
     super(props);
 
@@ -50,7 +50,7 @@ componentDidMount(){
      })
  }
 
-onUpdate = () => {
+onUpdate() {
   const exercises = {
       name: this.state.name,
       hobby: this.state.hobby,
@@ -59,14 +59,14 @@ onUpdate = () => {
 
   console.log(' UPDATE ', exercises);
 
-  axios.post('http://192.168.1.7:5000/exercises/update' + this.props.route.params.ID, exercises)
+  axios.post('http://192.168.1.7:5000/exercises/update/' + this.props.route.params.ID, exercises)
   .then(res => console.log(res.data))
 }
 
   render(){
     console.log(this.props.route.params.ID)
     return (
-      <View style={styles.container}>
+      <View>
         <SafeAreaView>
           <ScrollView>
             <Container style={styles.container}>
@@ -106,7 +106,7 @@ onUpdate = () => {
                 <View style={styles.tombol}>
                   <Button full rounded styles={styles.tombol} 
                   onPress={() => {
-                    this.onUpdate;
+                    this.onUpdate();
                     this.props.navigation.navigate('Read')
                   }}> 
                     <Text style={styles.text}>UPDATE</Text>

@@ -26,7 +26,7 @@ import {} from '@react-navigation/native'
 import axios from 'axios';
 
 
-export default class App extends Component {
+export default class InputData extends Component {
   constructor(props) {
     super(props);
 
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     alignSelf: 'center',
     color: '#01579b',
+    fontFamily: 'serif'
   },
   atas : {
     backgroundColor : "#fff",
