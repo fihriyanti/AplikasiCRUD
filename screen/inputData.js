@@ -85,7 +85,7 @@ onSubmit = () => {
                     keyboardType='numeric'
                     placeholder='Your Age'
                     onChangeText={age => this.setState({age})}
-                    value = {String(this.state.age)}>
+                    value = {this.state.age}>
                   </Input>
                   </Item>
                 </View>

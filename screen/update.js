@@ -39,13 +39,11 @@ export default class App extends Component {
 componentDidMount(){
      axios.get('http://192.168.1.7:5000/exercises/' + this.props.route.params.ID)
      .then(response => {
-         const name = response.data;
          this.setState({
              name : response.data.name,
              hobby : response.data.hobby,
              age: response.data.age
             })
-         console.log(name)
      })
      .catch((error) => {
          console.log(error);
@@ -101,14 +99,14 @@ onUpdate = () => {
                     keyboardType='numeric'
                     placeholder='Your Age'
                     onChangeText={age => this.setState({age : age})}
-                    value = {String(this.state.age)}>
+                    value = {this.state.age}>
                   </Input>
                   </Item>
                 </View>
                 <View style={styles.tombol}>
                   <Button full rounded styles={styles.tombol} 
                   onPress={() => {
-                    this.onUpdate(this.props.route.params.ID);
+                    this.onUpdate;
                     this.props.navigation.navigate('Read')
                   }}> 
                     <Text style={styles.text}>UPDATE</Text>
