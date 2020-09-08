@@ -13,6 +13,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import read from './screen/read';
 import inputData from './screen/inputData';
+import update from './screen/update';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default class App extends Component {
         <Stack.Navigator>
           <Stack.Screen name="Input Data" component={inputData} />
           <Stack.Screen name="Read" component={read} />
+          <Stack.Screen name="Update" component={update} />
         </Stack.Navigator>
       </NavigationContainer>
     );
