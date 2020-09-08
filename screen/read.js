@@ -37,15 +37,15 @@ setModalVisible = (visible) => {
 
  componentDidMount(){
    this.getdata();
-    axios.get('http://192.168.1.7:5000/exercises/')
-    .then(response => {
-        const name = response.data;
-        this.setState({name})
-        console.log(name)
-    })
-    .catch((error) => {
-        console.log(error);
-    })
+    // axios.get('http://192.168.1.7:5000/exercises/')
+    // .then(response => {
+    //     const name = response.data;
+    //     this.setState({name})
+    //     console.log(name)
+    // })
+    // .catch((error) => {
+    //     console.log(error);
+    // })
 }
 
 getdata(){
@@ -60,9 +60,9 @@ getdata(){
   })
 }
 
-componentDidUpdate(){
-  this.getdata();
-}
+// componentDidUpdate(){
+//   this.getdata();
+// }
 
 deleteHobby(id){
   Alert.alert(
@@ -99,10 +99,10 @@ keyExtractor = (item, index) => index.toString()
                   <SwipeListView
                     keyExtractor={this.keyExtractor}
                     data={this.state.name}
-                    renderItem={({item}) => (
+                    renderItem={(item) => (
                       <TouchableHighlight
                         onPress={() => {
-                          console.log("ID",item._id)
+                          console.log(item._id)
                           this.setModalVisible(true);
                         }}
                         style={styles.rowFront} 
