@@ -40,7 +40,11 @@ componentDidMount(){
      axios.get('http://192.168.1.7:5000/exercises/' + this.props.route.params.ID)
      .then(response => {
          const name = response.data;
-         this.setState({name})
+         this.setState({
+             name : response.data.name,
+             hobby : response.data.hobby,
+             age: response.data.age
+            })
          console.log(name)
      })
      .catch((error) => {
@@ -96,8 +100,8 @@ onUpdate = () => {
                     <Input style={styles.input} 
                     keyboardType='numeric'
                     placeholder='Your Age'
-                    onChangeText={age => this.setState({age})}
-                    value = {this.state.age}>
+                    onChangeText={age => this.setState({age : age})}
+                    value = {String(this.state.age)}>
                   </Input>
                   </Item>
                 </View>
